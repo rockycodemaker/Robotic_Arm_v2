@@ -23,8 +23,6 @@ class Serialcom:
     def close_comport(self):
         self.ser.close()
 
-# print(serial.tools.list_ports)
-
 a = Serialcom('COM3')
 a.open_comport()
 a.serial_write('hello world!')
