@@ -5,7 +5,6 @@ def initcomport():
     # choose first one (for now)
     return ['COM3']
 
-#comment
 class Serialcom:
     def __init__(self, comport_name):
         self.comport_name = comport_name
