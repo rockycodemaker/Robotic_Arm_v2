@@ -45,10 +45,10 @@ class Serialcom:
             self.ser.timeout = 3
             reply1 = self.ser.read(26)
             print(reply1.decode('utf-8'))
-
+            self.ser.flush()
             written = self.serial_write('magic_message!\n')
             if written > 0:
-                answer = self.serial_read(18, 2)
+                answer = self.serial_read(18, 3)
                 print(answer)
                 if answer == "message_received!\n":  # check for the magic answer
                     connected = True
