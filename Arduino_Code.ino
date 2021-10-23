@@ -9,16 +9,21 @@ boolean haveNewData = false;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  Serial.print("Microproccessor is ready!");
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   readSerial();
-    if ( haveNewData ) {
+    if ( haveNewData )
+    {
+      haveNewData = false;
       //check for the magic message, return magic answer
-      if (buffer == "magic_message!")
-        Serial.write("message_received!\n");
+      if (strcmp(buffer, "magic_message!") == 0)
+      {
+        Serial.print("message_received!\n");
       }
+    }
 }
 
 void readSerial()

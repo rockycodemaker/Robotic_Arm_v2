@@ -10,6 +10,5 @@ def Main():
     if micro_controller.init():                         # initialize the serial communication
         micro_controller.close_comport()
 
-
 if __name__ == '__main__':
     Main()
