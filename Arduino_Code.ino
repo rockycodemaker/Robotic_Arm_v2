@@ -9,7 +9,7 @@ boolean haveNewData = false;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  Serial.print("Microproccessor is ready!");
+  Serial.write("Serial port started!\n");
 }
 
 void loop() {
@@ -21,7 +21,7 @@ void loop() {
       //check for the magic message, return magic answer
       if (strcmp(buffer, "magic_message!") == 0)
       {
-        Serial.print("message_received!\n");
+        Serial.write("message_received!\n");
       }
     }
 }
