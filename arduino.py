@@ -19,8 +19,11 @@ class Serialcom:
 
     def serial_read(self):
         # read until newline and return the string
-        # self.ser.read(10)
-        return "message_received!"
+        message = ""
+        message = message + self.ser.read(1).decode('utf8')
+        while message[-1] != "\n":
+            message = message + self.ser.read(1).decode('utf8')
+        return message
 
     def init(self):
         connected = False
