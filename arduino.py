@@ -27,7 +27,7 @@ class Serialcom:
 
     def init(self):
         connected = False
-        self.ser = serial.Serial(self.comport_name, self.baud_rate, timeout=self.timeout) # open comport connection
+        self.ser = serial.Serial(self.comport_name, self.baud_rate, timeout=self.timeout)  # open comport connection
 
         # send the magic message
         if self.ser.is_open:
