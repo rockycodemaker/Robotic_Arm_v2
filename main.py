@@ -12,7 +12,11 @@ import screen
 
 
 def main():
+    # initialize screen
     screen_class = screen.initialize()
+
+    # initialize controller connection
+    joysticks = controller.initialize()
 
     # initialize serial connection
     port_names = arduino.find_comports()                # get a list of port names
@@ -28,8 +32,8 @@ def main():
     micro_controller.initialize()
 
     while not screen_class.done:
-        screen_class = screen.update_start(screen_class)
-        screen_class = screen.event_handler(screen_class)
+        screen_class.screen = screen.update_start(screen_class.screen)
+        screen_class = screen.event_handler(screen_class, micro_controller)
         screen.update_end()
 
     micro_controller.close_comport()
