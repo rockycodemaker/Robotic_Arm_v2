@@ -9,7 +9,7 @@ def find_comports():
 
 
 class SerialCom:
-    def __init__(self, comport_name, baud_rate=9600, time_out=1):
+    def __init__(self, comport_name='', baud_rate=9600, time_out=1):
         self.comport_name = comport_name
         self.baud_rate = baud_rate
         self.timeout = time_out
