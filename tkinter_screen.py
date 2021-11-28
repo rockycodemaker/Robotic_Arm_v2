@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import *
 from tkinter import ttk
 from tkinter import scrolledtext
@@ -46,39 +47,8 @@ class Screen(Tk):
         self.console.pack(padx=10, pady=10, fill=BOTH, expand=True)
         self.console.configure(state="disabled")
 
-        # notebook for settings
-        self.notebook = ttk.Notebook(self.window_right)
+        self.notebook = Notebook(self, self.window_right)
         self.notebook.pack(padx=0, pady=0, anchor=N, fill=BOTH, expand=True)
-
-        self.tab1 = Frame(self.notebook, bg="grey", padx=5, pady=10)
-        self.tab2 = Frame(self.notebook, bg="grey", padx=5, pady=10)
-
-        self.tab1.pack(fill=BOTH, expand=True)
-        self.tab2.pack(fill=BOTH, expand=True)
-
-        # add a notebook to right screen
-        self.notebook.add(self.tab1, text="Settings")
-        self.notebook.add(self.tab2, text="Keybinds")
-
-        # button
-        self.button1 = Button(self.left_top, text="Hello World!", command=self.cmd)
-        self.button1.grid(row=0, column=0, padx=5, pady=5)
-
-        # setting settings stuff
-        self.label1 = Label(self.tab1, text="something", bg="white",
-                            highlightbackground="black", highlightcolor="black")
-        self.label1.grid(row=0, column=0, padx=3, sticky=E)
-
-        self.label2 = Label(self.tab1, text="speed", bg="white",
-                            highlightbackground="black", highlightcolor="black")
-        self.label2.grid(row=1, column=0, padx=3, sticky=E)
-
-        self.speed_entry = Entry(self.tab1, width=17)
-        self.speed_entry.grid(row=0, column=1, sticky=W)
-
-        self.w = Scale(self.tab1, orient=HORIZONTAL, showvalue=False, bd=False, bg="white",
-                       highlightcolor="white", highlightbackground="white")
-        self.w.grid(row=1, column=1, sticky=W)
 
         self.mainloop()
 
@@ -88,6 +58,59 @@ class Screen(Tk):
         self.console.insert(END, message+"\n")
         self.console.see(END)
         self.console.configure(state=DISABLED)
+
+
+class Notebook(ttk.Notebook):
+    def __init__(self, root, master):
+        # notebook for settings
+        ttk.Notebook.__init__(self, master)
+
+        root.tab1 = SettingsTab(root, self)
+        root.tab2 = KeybindsTab(root, self)
+        # root.tab1 = Frame(self, bg="grey", padx=5, pady=10)
+        # root.tab2 = Frame(self, bg="grey", padx=5, pady=10)
+
+        root.tab1.pack(fill=BOTH, expand=True)
+        root.tab2.pack(fill=BOTH, expand=True)
+
+        self.add(root.tab1, text="Settings")
+        self.add(root.tab2, text="Keybinds")
+
+        # self.speed_entry = Entry(self.tab1, width=17)
+        # self.speed_entry.grid(row=0, column=1, sticky=W)
+        #
+        # self.w = Scale(self.tab1, orient=HORIZONTAL, showvalue=False, bd=False, bg="white",
+        #                highlightcolor="white", highlightbackground="white")
+        # self.w.grid(row=1, column=1, sticky=W)
+
+
+class SettingsTab(tkinter.Frame):
+    def __init__(self, root, master):
+        tkinter.Frame.__init__(self, bg="grey", padx=5, pady=10)
+
+        # settings labels
+        root.label1 = SettingsLabel(root, self, "Com port")
+        root.label1.grid(row=0, column=0, padx=3, sticky=E)
+
+        root.label2 = SettingsLabel(root, self, "speed")
+        root.label2.grid(row=1, column=0, padx=3, sticky=E)
+
+
+class KeybindsTab(tkinter.Frame):
+    def __init__(self, root, master):
+        tkinter.Frame.__init__(self, bg="grey", padx=5, pady=10)
+
+        # settings labels
+        root.label1 = SettingsLabel(root, self, "upwards")
+        root.label1.grid(row=0, column=0, padx=3, sticky=E)
+
+        root.label2 = SettingsLabel(root, self, "downwards")
+        root.label2.grid(row=1, column=0, padx=3, sticky=E)
+
+
+class SettingsLabel(tkinter.Label):
+    def __init__(self, root, master, text):
+        tkinter.Label.__init__(self, master, text=text, bg="white", relief="solid", borderwidth=0.5, width=10, anchor=E)
 
 
 class SplashScreen(Tk):
@@ -134,6 +157,7 @@ class SplashScreen(Tk):
 
 
 if __name__ == "__main__":
+
 
     splash_screen = SplashScreen()
     screen = Screen()
